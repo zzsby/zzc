@@ -32,12 +32,14 @@ jobs:
           node-version: 16
           # cache: 'pnpm'
       # 安装依赖
-      - name: Install dependencies
+      - name: set registry
         run: yarn config set registry https://registry.npm.taobao.org  
+      - name: Install  
         run: yarn install
       # 打包
-      - name: Build Packages
+      - name: build-storybook
         run: npm run build-storybook
+      - name: npm patch
         run: npm version patch
   publish-npm:
     needs: build
