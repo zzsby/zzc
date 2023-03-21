@@ -14,7 +14,7 @@ defaults:
 
 # 任务，定义个changelog 的任务
 jobs:
-  changelog:
+  build:
     name: build-and-publish
     runs-on: ubuntu-latest
     steps:
