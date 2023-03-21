@@ -38,6 +38,7 @@ jobs:
       #   run: yarn install
       - name: git-global
         run: git config --global user.email "344956304@qq.com"
+      - name: git-global-name
         run: git config --global user.name "zzsby"
       # 打包
       - name: build-compile
