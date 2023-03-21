@@ -32,10 +32,13 @@ jobs:
           node-version: 16
           # cache: 'pnpm'
       # 安装依赖
-      - name: set registry
-        run: yarn config set registry https://registry.npm.taobao.org  
-      - name: Install  
-        run: yarn install
+      # - name: set registry
+      #   run: yarn config set registry https://registry.npm.taobao.org  
+      # - name: Install  
+      #   run: yarn install
+      - name: git-global
+        run: git config --global user.email "344956304@qq.com"
+        run: git config --global user.name "zzsby"
       # 打包
       - name: build-compile
         run: npm run compile
