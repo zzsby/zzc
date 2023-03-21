@@ -1,0 +1,53 @@
+# 整个流程的名字
+name: build-and-publish
+
+# 触发时机，在 main 分支 push 操作触发
+on:
+  push:
+    branches:
+      - main
+
+# 默认shell
+defaults:
+  run:
+    shell: bash
+
+# 任务，定义个changelog 的任务
+jobs:
+  changelog:
+    name: build-and-publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      # # 设置 pnpm。指定版本7.0，不然会报错
+      # - name: Setup PNPM
+      #   uses: pnpm/action-setup@v2.2.1
+      #   with:
+      #     version: ^7.0
+
+      # 设置 Node
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          # cache: 'pnpm'
+      # 安装依赖
+      - name: Install dependencies
+        run: yarn config set registry https://registry.npm.taobao.org  
+        run: yarn install
+      # 打包
+      - name: Build Packages
+        run: npm run build-storybook
+        run: npm version patch
+  publish-npm:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://registry.npmjs.org
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
