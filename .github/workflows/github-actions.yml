@@ -37,8 +37,8 @@ jobs:
       - name: Install  
         run: yarn install
       # 打包
-      - name: build-storybook
-        run: npm run build-storybook
+      - name: build-compile
+        run: npm run compile
       - name: npm patch
         run: npm version patch
         

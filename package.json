@@ -14,7 +14,7 @@
   "scripts": {
     "build": "webpack",
     "storybook": "SET NODE_OPTIONS=--openssl-legacy-provider && start-storybook -p 6006",
-    "build-storybook": "SET NODE_OPTIONS=--openssl-legacy-provider &&  build-storybook",
+    "build-storybook": "build-storybook",
     "test:unit": "jest --config unit.jest.js",
     "test:e2e": "jest --config e2e.jest.js",
     "test": "npm run test:unit && npm run test:e2e",
