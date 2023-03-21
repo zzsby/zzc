@@ -41,6 +41,7 @@ jobs:
         run: npm run build-storybook
       - name: npm patch
         run: npm version patch
+        
   publish-npm:
     needs: build
     runs-on: ubuntu-latest
