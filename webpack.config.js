@@ -1,4 +1,5 @@
 const path = require('path');
+const resolve = dir => path.resolve(__dirname, dir);
 //提取CSS文件
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 //当前命令所在目录
@@ -31,6 +32,9 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'], // 指定扩展名
+    alias: {
+      '@scss': resolve('styles'),
+    },
   },
   module: {
     rules: [
@@ -42,7 +46,7 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          MiniCssExtractPlugin.loader, // 把这些css收集起来后面通过插件写入单独的.scss文件中
+          MiniCssExtractPlugin.loader, // 把这些css收集起来后面通过插件写入单独的.css文件中
           {
             loader: 'css-loader', // 处理@import和url
             options: {
@@ -61,7 +65,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.less$/,
+        test: /\.scss$/,
         use: [
           MiniCssExtractPlugin.loader,
           {
@@ -71,19 +75,16 @@ module.exports = {
             },
           },
           {
-            loader: 'postcss-loader',
+            loader: 'sass-loader', // 把scss编译成css
             options: {
-              postcssOptions: {
-                plugins: ['autoprefixer'],
-              },
               sourceMap: true,
             },
           },
           {
-            loader: 'less-loader', // 把less编译成css
+            loader: 'postcss-loader',
             options: {
-              lessOptions: {
-                javascriptEnabled: true,
+              postcssOptions: {
+                plugins: ['autoprefixer'],
               },
               sourceMap: true,
             },

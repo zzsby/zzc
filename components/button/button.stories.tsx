@@ -1,24 +1,24 @@
 import React from "react";
+import { ComponentStory, ComponentMeta } from "@storybook/react";
+import '../../styles/index.scss';
 
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-// ComponentStory 组件故事
-// ComponentMeta 源数据
+import Button from ".";
 
-import Button from '.';
-
-// button 组件的描述信息
 export default {
-  title: '通用/Button',
-  component: Button
-} as ComponentMeta<typeof Button>
+  title: "通用/Button(按钮)",
+  component: Button,
+  argTypes: {
+    size: { description:'点击取消后的回调事件', default:'lg', control: { type: 'select', options: ['lg', 'sm'] } },
+    btnType: { control: { type: 'select', options: ['primary', 'default', 'danger', 'link'] } },
+  },
+} as ComponentMeta<typeof Button>;
 
+const Template: ComponentStory<typeof Button> = (args) => (
+  <Button  {...args} />
+);
 
-// 定义一个组件故事模板
-const Template: ComponentStory<typeof Button> = (args) => <Button { ...args } />;
-
-// 基本组件
 export const Basic = Template.bind({});
-// 定义组建的属性
 Basic.args = {
-  children: '按钮'
-}
+  children: "按钮",
+  btnType: 'default'
+};
